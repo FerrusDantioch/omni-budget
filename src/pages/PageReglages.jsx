@@ -304,7 +304,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
         </div>
         <p>
           Cette application a été conçue et développée par Ferrus Dantioch, avec
-          l'aide de Claude (une intelligence artificielle d'Anthropic).
+          l'aide de l'intelligence artificielle.
         </p>
         <p className="champ-aide">
           Voir d'autres projets :{' '}
