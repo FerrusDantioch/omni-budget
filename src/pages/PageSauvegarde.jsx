@@ -71,7 +71,7 @@ export function PageSauvegarde({ surMessage }) {
       surMessage('Sauvegarde créée');
     } catch (probleme) {
       console.error('Sauvegarde impossible', probleme);
-      definirErreurExport('La sauvegarde a échoué. Réessayez.');
+      definirErreurExport('La sauvegarde a échoué. Réessaie.');
     } finally {
       definirExportEnCours(false);
     }
@@ -83,7 +83,7 @@ export function PageSauvegarde({ surMessage }) {
     definirApercuSauvegarde(null);
 
     if (!fichierChoisi) {
-      definirErreurImport('Choisissez d’abord un fichier de sauvegarde.');
+      definirErreurImport('Choisis d’abord un fichier de sauvegarde.');
       return;
     }
 
@@ -119,8 +119,8 @@ export function PageSauvegarde({ surMessage }) {
         </div>
 
         <p>
-          Un fichier unique, <strong>chiffré</strong>, contenant vos dépenses,
-          catégories, budgets, récurrences et reçus. Rangez-le où vous voulez :
+          Un fichier unique, <strong>chiffré</strong>, contenant tes dépenses,
+          catégories, budgets, récurrences et reçus. Range-le où tu veux :
           sans le mot de passe, il est illisible.
         </p>
 
@@ -154,7 +154,7 @@ export function PageSauvegarde({ surMessage }) {
           </div>
 
           <div className="champ">
-            <label className="champ-etiquette" htmlFor="champ-mdp-2">Confirmez le mot de passe</label>
+            <label className="champ-etiquette" htmlFor="champ-mdp-2">Confirme le mot de passe</label>
             <input
               id="champ-mdp-2"
               type="password"
@@ -179,8 +179,8 @@ export function PageSauvegarde({ surMessage }) {
             <p>
               Il n’est enregistré nulle part : ni dans l’application, ni dans le
               fichier de sauvegarde. Personne ne peut le retrouver ni le
-              réinitialiser — ni vous, ni l’auteur de l’application.
-              Notez-le dans un endroit sûr.
+              réinitialiser — ni toi, ni l’auteur de l’application.
+              Note-le dans un endroit sûr.
             </p>
             <label className="champ-case">
               <input
@@ -334,8 +334,8 @@ export function PageSauvegarde({ surMessage }) {
           <span aria-hidden="true">🔓</span>
           <span>
             <strong>Ce fichier n’est pas chiffré.</strong> Toute personne qui y
-            a accès peut lire l’intégralité de vos dépenses. Ne l’envoyez pas
-            par messagerie et supprimez-le après usage.
+            a accès peut lire l’intégralité de tes dépenses. Ne l’envoie pas
+            par messagerie et supprime-le après usage.
           </span>
         </p>
 
@@ -352,8 +352,8 @@ export function PageSauvegarde({ surMessage }) {
       {/* ================= CONFIRMATIONS ================= */}
       {confirmationRestauration && (
         <Confirmation
-          titre="Remplacer toutes vos données ?"
-          message="Vos dépenses, catégories, budgets, récurrences et reçus actuels seront définitivement effacés et remplacés par le contenu de la sauvegarde. Cette action est irréversible."
+          titre="Remplacer toutes tes données ?"
+          message="Tes dépenses, catégories, budgets, récurrences et reçus actuels seront définitivement effacés et remplacés par le contenu de la sauvegarde. Cette action est irréversible."
           libelleConfirmation="Remplacer"
           surAnnulation={() => definirConfirmationRestauration(false)}
           surConfirmation={async () => {
@@ -378,7 +378,7 @@ export function PageSauvegarde({ surMessage }) {
       {confirmationCsv && (
         <Confirmation
           titre="Exporter en clair ?"
-          message="Le fichier CSV n’est protégé par aucun mot de passe. N’importe qui pourra lire toutes vos dépenses, montants et notes."
+          message="Le fichier CSV n’est protégé par aucun mot de passe. N’importe qui pourra lire toutes tes dépenses, montants et notes."
           libelleConfirmation="J’ai compris, exporter"
           surAnnulation={() => definirConfirmationCsv(false)}
           surConfirmation={exporterEnCsv}

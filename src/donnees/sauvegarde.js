@@ -96,7 +96,7 @@ export function evaluerMotDePasse(motDePasse) {
   return {
     niveau: 'faible',
     acceptable: true,
-    message: 'Peu solide. Préférez une phrase de plusieurs mots.',
+    message: 'Peu solide. Préfère une phrase de plusieurs mots.',
   };
 }
 

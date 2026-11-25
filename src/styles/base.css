@@ -26,6 +26,7 @@
   --accent: #2563eb;
   --accent-fonce: #1d4ed8;
   --accent-doux: #e6edfd;
+  --accent-texte: #ffffff;
 
   /* Couleurs des niveaux d'alerte du budget.
      Elles ont toutes un contraste >= 4,5:1 avec le fond des cartes (WCAG AA). */
@@ -69,6 +70,7 @@
   --accent: #6d9bff;
   --accent-fonce: #8fb3ff;
   --accent-doux: #1e2a44;
+  --accent-texte: #0b0e13;
 
   --ok: #56d489;
   --ok-fond: #12321f;
@@ -81,6 +83,42 @@
 
   --ombre-carte: 0 1px 2px rgba(0, 0, 0, 0.4);
   --ombre-flottante: 0 6px 22px rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   2b. PALETTE — THEME OMNI (charte Omni-Systeme violet-nuit, WCAG AA >= 4,5:1)
+   ========================================================================== */
+:root[data-theme='omni'] {
+  --fond: #0e0d12;
+  --fond-carte: #17151f;
+  --fond-doux: #211e2d;
+  --fond-survol: #2a2638;
+
+  --texte: #f4f4f6;
+  --texte-doux: #9ca3af;
+  --texte-inverse: #0e0d12;
+
+  --bordure: #2a2638;
+  --bordure-forte: #6e658f;
+
+  --accent: #9d7cf4;
+  --accent-fonce: #b197fc;
+  --accent-doux: #251e3e;
+  --accent-texte: #0e0d12;
+
+  --ok: #56d489;
+  --ok-fond: #12321f;
+  --attention: #fcbf49;
+  --attention-fond: #3a2a0c;
+  --critique: #ff8a80;
+  --critique-fond: #3d1715;
+  --depasse: #ff9a91;
+  --depasse-fond: #4a1512;
+
+  --ombre-carte: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --ombre-flottante: 0 6px 22px rgba(0, 0, 0, 0.65);
 
   color-scheme: dark;
 }
@@ -171,7 +209,7 @@ p { margin: 0 0 0.8em; }
   z-index: 100;
   padding: 0.7rem 1rem;
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-texte);
   border-radius: 0 0 var(--rayon-petit) 0;
   text-decoration: none;
 }

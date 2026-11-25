@@ -101,7 +101,7 @@ export function useNotifications() {
         active: false,
         raison:
           reponse === 'denied'
-            ? 'Les notifications ont été refusées. Vous pouvez les réautoriser dans les réglages du navigateur.'
+            ? 'Les notifications ont été refusées. Tu peux les réautoriser dans les réglages du navigateur.'
             : 'Autorisation non accordée.',
       };
     }

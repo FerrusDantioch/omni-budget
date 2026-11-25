@@ -136,7 +136,7 @@ export function TableauDeBord({ surAjoutDepense }) {
         {resume.totalPlafond > 0 && resume.niveau === 'depasse' && (
           <p className="bandeau bandeau-erreur" style={{ marginTop: '0.9rem' }}>
             <span aria-hidden="true">⚠️</span>
-            Vous avez dépassé votre budget global de{' '}
+            Tu as dépassé ton budget global de{' '}
             {formaterMontant(-resteGlobal, devise)}.
           </p>
         )}

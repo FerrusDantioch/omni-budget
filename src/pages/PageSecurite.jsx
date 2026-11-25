@@ -87,7 +87,7 @@ export function PageSecurite({ surMessage }) {
     } catch (probleme) {
       definirMessageCode(
         probleme instanceof coffre.ErreurCodeIncorrect
-          ? 'Votre ancien code est incorrect.'
+          ? 'Ton ancien code est incorrect.'
           : (probleme.message ?? 'Le changement a échoué.')
       );
       definirSaisie('');
@@ -139,7 +139,7 @@ export function PageSecurite({ surMessage }) {
     );
 
     if (!toutesCorrectes) {
-      definirMessagePhrase('Un des mots ne correspond pas. Vérifiez votre copie.');
+      definirMessagePhrase('Un des mots ne correspond pas. Vérifie ta copie.');
       return;
     }
 
@@ -191,7 +191,7 @@ export function PageSecurite({ surMessage }) {
         </div>
 
         <p>
-          Déverrouillez avec votre empreinte, votre visage ou Windows Hello.
+          Déverrouille avec ton empreinte, ton visage ou Windows Hello.
           <strong> Le code reste toujours utilisable</strong> : si le capteur
           ne répond pas, l’écran du code s’affiche immédiatement.
         </p>
@@ -225,7 +225,7 @@ export function PageSecurite({ surMessage }) {
         )}
 
         <p className="champ-aide" style={{ marginTop: '0.6rem' }}>
-          L’application exige que votre appareil sache fabriquer une clé
+          L’application exige que ton appareil sache fabriquer une clé
           protégée par le capteur. Sans cette garantie, la biométrie ne serait
           qu’un portail décoratif : elle n’est alors pas proposée.
         </p>
@@ -238,7 +238,7 @@ export function PageSecurite({ surMessage }) {
         </div>
 
         <p>
-          12 mots qui permettent de rouvrir vos données si vous oubliez votre
+          12 mots qui permettent de rouvrir tes données si tu oublies ton
           code. <strong>C’est la seule protection contre un oubli.</strong>
         </p>
 
@@ -250,7 +250,7 @@ export function PageSecurite({ surMessage }) {
             </p>
             <p className="champ-aide">
               Elle ne peut plus être réaffichée : seule sa version chiffrée est
-              conservée. Si vous l’avez perdue, créez-en une nouvelle (l’ancienne
+              conservée. Si tu l’as perdue, crées-en une nouvelle (l’ancienne
               cessera alors de fonctionner).
             </p>
             <div className="rangee-boutons">
@@ -274,7 +274,7 @@ export function PageSecurite({ surMessage }) {
           <>
             <p className="bandeau bandeau-alerte">
               <span aria-hidden="true">⚠️</span>
-              Aucune phrase de récupération. Si vous oubliez votre code, vos
+              Aucune phrase de récupération. Si tu oublies ton code, tes
               données seront définitivement perdues.
             </p>
             <button
@@ -298,7 +298,7 @@ export function PageSecurite({ surMessage }) {
             <span className="principal">
               <span className="titre">Après {minutes} minutes d’inactivité</span>
               <span className="detail">
-                La clé de déchiffrement est effacée de la mémoire : vos données
+                La clé de déchiffrement est effacée de la mémoire : tes données
                 redeviennent illisibles.
               </span>
             </span>
@@ -319,9 +319,9 @@ export function PageSecurite({ surMessage }) {
       {changementOuvert && (
         <Modale titre="Changer de code" surFermeture={reinitialiserChangement}>
           <p>
-            {etapeCode === 'ancien' && 'Saisissez votre code actuel.'}
-            {etapeCode === 'nouveau' && 'Choisissez votre nouveau code.'}
-            {etapeCode === 'confirmation' && 'Confirmez le nouveau code.'}
+            {etapeCode === 'ancien' && 'Saisis ton code actuel.'}
+            {etapeCode === 'nouveau' && 'Choisis ton nouveau code.'}
+            {etapeCode === 'confirmation' && 'Confirme le nouveau code.'}
           </p>
           <ClavierPin
             valeur={saisie}
@@ -352,12 +352,12 @@ export function PageSecurite({ surMessage }) {
               <div className="avertissement-majeur">
                 <p className="avertissement-titre">
                   <span aria-hidden="true">⚠️</span> À noter sur papier, pas dans
-                  votre téléphone
+                  ton téléphone
                 </p>
                 <p>
-                  Ces 12 mots donnent accès à toutes vos données. Quiconque les
-                  possède peut ouvrir votre budget. Ne les photographiez pas, ne
-                  les envoyez par aucune messagerie.
+                  Ces 12 mots donnent accès à toutes tes données. Quiconque les
+                  possède peut ouvrir ton budget. Ne les photographie pas, ne
+                  les envoie par aucune messagerie.
                 </p>
                 <p>
                   Ils ne seront affichés <strong>qu’une seule fois</strong>.
@@ -376,7 +376,7 @@ export function PageSecurite({ surMessage }) {
 
           {etapePhrase === 'affichage' && (
             <>
-              <p>Recopiez ces 12 mots dans l’ordre, puis appuyez sur « Continuer ».</p>
+              <p>Recopie ces 12 mots dans l’ordre, puis appuie sur « Continuer ».</p>
               <ol className="grille-mots">
                 {phrase.split(' ').map((mot, index) => (
                   <li key={`${mot}-${index}`}>
@@ -399,7 +399,7 @@ export function PageSecurite({ surMessage }) {
           {etapePhrase === 'verification' && (
             <form onSubmit={verifierLaPhrase} noValidate>
               <p>
-                Pour être sûr que la copie est bonne, saisissez les mots
+                Pour être sûr que la copie est bonne, saisis les mots
                 demandés.
               </p>
               {positionsAVerifier.map((position) => (
@@ -445,7 +445,7 @@ export function PageSecurite({ surMessage }) {
             <>
               <p className="bandeau bandeau-info">
                 <span aria-hidden="true">✅</span>
-                Votre phrase de récupération est active. Rangez le papier en
+                Ta phrase de récupération est active. Range le papier en
                 lieu sûr.
               </p>
               <button
@@ -464,7 +464,7 @@ export function PageSecurite({ surMessage }) {
       {confirmationRetraitPhrase && (
         <Confirmation
           titre="Supprimer la phrase ?"
-          message="Sans phrase de récupération, oublier votre code signifiera perdre définitivement toutes vos données."
+          message="Sans phrase de récupération, oublier ton code signifiera perdre définitivement toutes tes données."
           libelleConfirmation="Supprimer quand même"
           surAnnulation={() => definirConfirmationRetraitPhrase(false)}
           surConfirmation={async () => {

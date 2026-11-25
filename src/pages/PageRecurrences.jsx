@@ -79,7 +79,7 @@ export function PageRecurrences({ surMessage }) {
       {/* --- Resume --- */}
       <section className="carte">
         <div className="carte-titre">
-          <h2>Vos récurrences</h2>
+          <h2>Tes récurrences</h2>
           <button
             type="button"
             className="bouton bouton-discret"
@@ -91,7 +91,7 @@ export function PageRecurrences({ surMessage }) {
 
         {recurrences.length === 0 ? (
           <p className="centre-vide">
-            Aucune récurrence. Ajoutez votre loyer ou vos abonnements : ils
+            Aucune récurrence. Ajoute ton loyer ou tes abonnements : ils
             seront enregistrés automatiquement chaque mois.
           </p>
         ) : (
@@ -193,7 +193,7 @@ export function PageRecurrences({ surMessage }) {
         </div>
 
         <p>
-          L’application peut vous prévenir <strong>{JOURS_AVANT_RAPPEL} jours avant</strong>{' '}
+          L’application peut te prévenir <strong>{JOURS_AVANT_RAPPEL} jours avant</strong>{' '}
           chaque prélèvement automatique.
         </p>
 
@@ -202,7 +202,7 @@ export function PageRecurrences({ surMessage }) {
           <span>
             À savoir : les rappels sont vérifiés <strong>à l’ouverture de
             l’application</strong>. Une vraie notification programmée exigerait
-            un serveur qui envoie le message — donc vos données sortiraient de
+            un serveur qui envoie le message — donc tes données sortiraient de
             l’appareil. Ce projet fait le choix inverse.
           </span>
         </p>
@@ -214,8 +214,8 @@ export function PageRecurrences({ surMessage }) {
         ) : notifications.permission === 'denied' ? (
           <p className="bandeau bandeau-alerte">
             <span aria-hidden="true">🔕</span>
-            Les notifications sont bloquées pour ce site. Vous pouvez les
-            réautoriser dans les réglages de votre navigateur.
+            Les notifications sont bloquées pour ce site. Tu peux les
+            réautoriser dans les réglages de ton navigateur.
           </p>
         ) : notifications.activees ? (
           <>

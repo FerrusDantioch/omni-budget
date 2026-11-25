@@ -86,15 +86,15 @@ export async function verifierDisponibilite() {
         disponible: false,
         raison:
           'Le dictionnaire de reconnaissance n’est pas installé sur ce site. ' +
-          'Vous pouvez saisir le reçu à la main.',
+          'Tu peux saisir le reçu à la main.',
       };
     }
   } catch (probleme) {
     disponibiliteConnue = {
       disponible: false,
       raison: navigator.onLine
-        ? 'Le moteur de reconnaissance est introuvable. Vous pouvez saisir le reçu à la main.'
-        : 'Sans connexion, la reconnaissance automatique n’est possible que si elle a déjà été utilisée une fois. Vous pouvez saisir le reçu à la main.',
+        ? 'Le moteur de reconnaissance est introuvable. Tu peux saisir le reçu à la main.'
+        : 'Sans connexion, la reconnaissance automatique n’est possible que si elle a déjà été utilisée une fois. Tu peux saisir le reçu à la main.',
     };
   }
 

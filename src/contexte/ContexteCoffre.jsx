@@ -77,7 +77,7 @@ export function FournisseurCoffre({ children }) {
         if (!annule) {
           definirErreurDemarrage(
             'Impossible d’accéder au stockage de cet appareil. ' +
-              'Vérifiez que la navigation privée est désactivée, puis rechargez la page.'
+              'Vérifie que la navigation privée est désactivée, puis recharge la page.'
           );
         }
       }
@@ -199,7 +199,7 @@ export function FournisseurCoffre({ children }) {
           return {
             ouvert: false,
             message: suivant.bloque
-              ? `Trop d’essais. Réessayez dans ${Math.ceil(suivant.secondesRestantes / 60)} minutes.`
+              ? `Trop d’essais. Réessaie dans ${Math.ceil(suivant.secondesRestantes / 60)} minutes.`
               : `Code incorrect. ${suivant.essaisRestants} essai${suivant.essaisRestants > 1 ? 's' : ''} restant${suivant.essaisRestants > 1 ? 's' : ''}.`,
           };
         }

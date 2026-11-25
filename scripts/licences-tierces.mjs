@@ -50,7 +50,7 @@ function texteDeLicence(dossier) {
 
   const trouves = fs
     .readdirSync(dossier, { recursive: true })
-    .map(String)
+    .map((chemin) => String(chemin).replace(/\\/g, '/'))
     .filter((chemin) => !chemin.includes('node_modules') && EST_LICENCE(path.basename(chemin)))
     .sort();
   if (!trouves.length) return null;
@@ -71,7 +71,7 @@ const paquets = Object.entries(verrou.packages)
     licence: infos.license || 'non indiquee',
     texte: texteDeLicence(path.resolve(chemin)),
   }))
-  .sort((a, b) => a.nom.localeCompare(b.nom));
+  .sort((a, b) => (a.nom < b.nom ? -1 : a.nom > b.nom ? 1 : 0));
 
 // Un meme paquet peut etre installe plusieurs fois (dans des versions differentes).
 const vus = new Set();

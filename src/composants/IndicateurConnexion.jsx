@@ -21,7 +21,7 @@ export function IndicateurConnexion() {
       title={
         enLigne
           ? 'Connexion Internet disponible (elle n’est pas nécessaire).'
-          : 'Aucune connexion : l’application fonctionne normalement, vos données sont sur cet appareil.'
+          : 'Aucune connexion : l’application fonctionne normalement, tes données sont sur cet appareil.'
       }
     >
       <span className="pastille" aria-hidden="true" />

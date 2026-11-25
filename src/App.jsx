@@ -163,7 +163,7 @@ function ApplicationDeverrouillee({ serviceWorker }) {
   if (!pret) {
     return (
       <div className="chargement-initial" role="status">
-        <p>Déchiffrement de vos données…</p>
+        <p>Déchiffrement de tes données…</p>
       </div>
     );
   }

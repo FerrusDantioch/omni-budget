@@ -106,7 +106,7 @@ export async function verifierPhrase(phrase) {
   if (inconnus.length > 0) {
     return {
       valide: false,
-      raison: `Mot inconnu : « ${inconnus[0]} ». Vérifiez l’orthographe.`,
+      raison: `Mot inconnu : « ${inconnus[0]} ». Vérifie l’orthographe.`,
     };
   }
 
