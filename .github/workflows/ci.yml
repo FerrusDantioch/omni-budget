@@ -54,7 +54,7 @@ jobs:
             if (lic.length !== 43184 || licHash !== '0483fae80ead6506beafd3258fea07f5ff23bb81e2fbd41daf137d58798a14fb') {
               throw new Error('LICENSE integrity check failed');
             }
-            if (!sw.includes('omni-budget-2.0.1-')) throw new Error('SW cache version mismatch');
+            if (!/const\s+VERSION_CACHE\s*=\s*[\x22']2\.0\.1-[0-9a-f]{12}[\x22']/.test(sw) || !sw.includes('omni-budget-\x24{VERSION_CACHE}')) throw new Error('SW cache version mismatch');
             if (!sw.includes('/omni-budget/licences-tierces.txt')) throw new Error('licences-tierces.txt missing from precache');
             if (!sw.includes('/omni-budget/theme-init.js')) throw new Error('theme-init.js missing from precache');
             if (!html.includes('Content-Security-Policy')) throw new Error('CSP missing');
