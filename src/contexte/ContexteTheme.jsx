@@ -8,10 +8,11 @@
  * sous la forme d'un attribut (data-theme="sombre"). Le fichier CSS s'occupe
  * ensuite de changer toutes les couleurs d'un coup.
  *
- * Trois choix possibles :
+ * Quatre choix possibles :
  *   "auto"   : on suit le reglage du telephone (par defaut)
  *   "clair"  : toujours clair
  *   "sombre" : toujours sombre
+ *   "omni"   : charte Omni-Systeme (violet-nuit)
  */
 
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
@@ -27,7 +28,7 @@ const CLE_STOCKAGE = 'budget-theme';
 function lireThemeEnregistre() {
   try {
     const valeur = localStorage.getItem(CLE_STOCKAGE);
-    if (valeur === 'clair' || valeur === 'sombre' || valeur === 'auto') return valeur;
+    if (valeur === 'clair' || valeur === 'sombre' || valeur === 'auto' || valeur === 'omni') return valeur;
   } catch (erreur) {
     // Navigation privee très restrictive : on ignore et on reste en "auto".
   }
@@ -52,14 +53,19 @@ export function FournisseurTheme({ children }) {
     return () => media.removeEventListener('change', reagir);
   }, []);
 
-  // Le theme reellement affiche : "clair" ou "sombre".
+  // Le theme reellement affiche : "clair", "sombre" ou "omni".
   const themeApplique = theme === 'auto' ? (systemeEnSombre ? 'sombre' : 'clair') : theme;
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', themeApplique);
 
     // On met aussi a jour la couleur de la barre systeme du telephone.
-    const couleur = themeApplique === 'sombre' ? '#12151a' : '#f7f8fa';
+    const couleursBarre = {
+      clair: '#f7f8fa',
+      sombre: '#12151a',
+      omni: '#0e0d12',
+    };
+    const couleur = couleursBarre[themeApplique] ?? '#f7f8fa';
     for (const balise of document.querySelectorAll('meta[name="theme-color"]')) {
       balise.setAttribute('content', couleur);
     }

@@ -60,7 +60,7 @@ export function PageHistorique({ surOuvertureMois }) {
           <p className="centre-vide" role="status">Chargement…</p>
         ) : lignes.length === 0 ? (
           <p className="centre-vide">
-            Aucun mois archivé pour l’instant. Enregistrez une première dépense.
+            Aucun mois archivé pour l’instant. Enregistre une première dépense.
           </p>
         ) : (
           <>

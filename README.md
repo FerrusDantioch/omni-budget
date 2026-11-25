@@ -1,6 +1,8 @@
 # Omni-Budget — mes dépenses
 
-Application de gestion de budget personnel qui fonctionne **entièrement sur votre
+**Version : 2.0.1**
+
+Application de gestion de budget personnel qui fonctionne **entièrement sur ton
 appareil**, hors-ligne, et dont **toutes les données sont chiffrées**. Aucun
 compte, aucun serveur, aucune publicité, aucun mouchard.
 
@@ -42,7 +44,7 @@ compte, aucun serveur, aucune publicité, aucun mouchard.
 - Rappel 2 jours avant un prélèvement (voir la limite honnête au § 6).
 
 ### Sauvegarde
-- Export **chiffré** par un mot de passe maître que vous choisissez.
+- Export **chiffré** par un mot de passe maître que tu choisis.
 - Import impossible sans ce mot de passe, avec aperçu du contenu avant de
   remplacer quoi que ce soit.
 - Export **CSV** pour tableur, clairement signalé comme **non chiffré**.
@@ -61,9 +63,10 @@ compte, aucun serveur, aucune publicité, aucun mouchard.
 
 ### Qualité
 - Accessibilité WCAG 2.1 AA : clavier, contrastes, cibles tactiles de 44 px,
-  lecteurs d'écran, respect de « animations réduites ».
+  lecteurs d'écran, respect de « animations réduites », thèmes clair / sombre /
+  automatique / **Omni** (violet-nuit).
 - Premier chargement : **environ 87 ko compressés** (HTML + CSS + JavaScript).
-- **179 tests automatisés**.
+- Tests unitaires (Vitest) et tests navigateur bout-en-bout (Playwright).
 
 ---
 
@@ -77,8 +80,8 @@ Un seul outil : **Node.js version 20.19 ou plus récente**. Pour vérifier :
 node --version
 ```
 
-Si la commande échoue, téléchargez Node.js sur <https://nodejs.org> (version
-« LTS »), installez-le, puis fermez et rouvrez le terminal.
+Si la commande échoue, télécharge Node.js sur <https://nodejs.org> (version
+« LTS »), installe-le, puis ferme et rouvre le terminal.
 
 ### Les commandes
 
@@ -108,10 +111,11 @@ Aperçu pendant le développement, à l'adresse affichée **suivie de `/omni-bud
 par exemple <http://localhost:5173/omni-budget/>.
 
 ```bash
-npm test
+npm test           # lance les tests unitaires (Vitest)
+npm run test:e2e   # lance les tests navigateur E2E (Playwright, après build)
 ```
 
-Lance les 179 tests automatisés. **Tout doit être vert avant de publier.**
+**Tout doit être vert avant de publier.**
 
 ```bash
 npm run build      # fabrique le dossier dist/
@@ -124,16 +128,16 @@ npm run preview    # affiche la version finale, mode hors-ligne actif
 
 ### Étape 1 — Vérifier le nom du dépôt
 
-Ouvrez `vite.config.js`. Tout en haut se trouve **la seule ligne à adapter** :
+Ouvre `vite.config.js`. Tout en haut se trouve **la seule ligne à adapter** :
 
 ```js
 const NOM_DU_DEPOT = 'omni-budget';
 ```
 
-Remplacez `omni-budget` par le nom exact de votre dépôt GitHub, majuscules comprises.
+Remplace `omni-budget` par le nom exact de ton dépôt GitHub, majuscules comprises.
 
 > **Pourquoi c'est important** : sur GitHub Pages, le site est servi à l'adresse
-> `https://votre-pseudo.github.io/NOM-DU-DEPOT/`. Si ce nom est faux, la page
+> `https://ton-pseudo.github.io/NOM-DU-DEPOT/`. Si ce nom est faux, la page
 > restera blanche et les icônes seront introuvables.
 
 ### Étape 2 — Envoyer le code sur GitHub
@@ -146,21 +150,21 @@ git push
 
 ### Étape 3 — Activer GitHub Pages (une seule fois)
 
-1. Sur GitHub, ouvrez votre dépôt.
+1. Sur GitHub, ouvre ton dépôt.
 2. Onglet **Settings** (Paramètres) → menu de gauche **Pages**.
-3. À la ligne **Source**, choisissez **GitHub Actions** (et non « Deploy from a
+3. À la ligne **Source**, choisis **GitHub Actions** (et non « Deploy from a
    branch »).
 
 ### Étape 4 — Attendre la publication
 
 `.github/workflows/deploiement.yml` fait tout le reste : installation, icônes,
-moteur OCR, tests, construction, mise en ligne. Suivez l'avancement dans
-l'onglet **Actions**. Comptez 3 à 4 minutes.
+moteur OCR, tests, construction, mise en ligne. Suis l'avancement dans
+l'onglet **Actions**. Compte 3 à 4 minutes.
 
-Votre application est alors à l'adresse :
+Ton application est alors à l'adresse :
 
 ```
-https://VOTRE-PSEUDO.github.io/NOM-DU-DEPOT/
+https://TON-PSEUDO.github.io/NOM-DU-DEPOT/
 ```
 
 > Si un test échoue, la publication est **volontairement bloquée** : cela évite
@@ -168,7 +172,7 @@ https://VOTRE-PSEUDO.github.io/NOM-DU-DEPOT/
 
 ### Étape 5 — Installer sur le téléphone
 
-1. Ouvrez l'adresse ci-dessus dans **Chrome** sur Android.
+1. Ouvre l'adresse ci-dessus dans **Chrome** sur Android.
 2. Menu **⋮** → **Installer l'application**.
 3. L'icône apparaît sur l'écran d'accueil.
 
@@ -185,93 +189,93 @@ Procédure de test complète, sans terme technique.
 
 ### A. Premier lancement et code
 
-1. Ouvrez l'application. Un écran **« Protégez vos données »** apparaît.
-2. Appuyez sur **Choisir mon code**, tapez un code à **6 chiffres**, puis
-   retapez-le. L'application s'ouvre.
-3. Vérifiez le refus des codes trop simples : recommencez avec `123456`, un
+1. Ouvre l'application. Un écran **« Protège tes données »** apparaît.
+2. Appuie sur **Choisir mon code**, tape un code à **6 chiffres**, puis
+   retape-le. L'application s'ouvre.
+3. Vérifie le refus des codes trop simples : recommence avec `123456`, un
    message doit l'interdire.
 
 ### B. Dépenses
 
-4. Bouton bleu **+** → montant `12,50`, catégorie « Alimentation » →
+4. Bouton **+** → montant `12,50`, catégorie « Alimentation » →
    **Ajouter la dépense**. Le total passe à 12,50 €.
-5. Ajoutez 400 € en Alimentation : la barre devient rouge et affiche
+5. Ajoute 400 € en Alimentation : la barre devient rouge et affiche
    **« Budget dépassé »**.
-6. Ajoutez une ligne en choisissant **Revenu** : elle s'affiche en vert avec un
+6. Ajoute une ligne en choisissant **Revenu** : elle s'affiche en vert avec un
    « + » et n'entre dans aucun plafond.
-7. Onglet **Dépenses** → appuyez sur une ligne, changez le montant, enregistrez.
-   Puis rouvrez-la et supprimez-la.
+7. Onglet **Dépenses** → appuie sur une ligne, change le montant, enregistre.
+   Puis rouvre-la et supprime-la.
 
 ### C. Récurrences
 
 8. Onglet **Dépenses** → bouton **🔁 Récurrentes** → **+ Ajouter**.
 9. Nom « Loyer », 700 €, catégorie Logement, chaque mois le 5, première
    échéance **le mois dernier**.
-10. Avant de valider, vérifiez l'encadré **« Effet sur … »** : il annonce le
+10. Avant de valider, vérifie l'encadré **« Effet sur … »** : il annonce le
     nombre d'échéances et le pourcentage de la catégorie après ajout.
-11. Validez. Les échéances passées apparaissent dans l'historique, et un bandeau
+11. Valide. Les échéances passées apparaissent dans l'historique, et un bandeau
     signale les lignes créées automatiquement.
-12. Appuyez sur **⏸️** : la récurrence est suspendue sans être perdue.
+12. Appuie sur **⏸️** : la récurrence est suspendue sans être perdue.
 
 ### D. Reçus
 
 13. Onglet **Dépenses** → **📷 Reçus** → **Scanner** → **Prendre une photo**.
-14. Photographiez un ticket de caisse bien à plat, sous une bonne lumière.
-15. La première lecture télécharge le moteur (≈ 3,5 Mo) : comptez 20 à 40
+14. Photographie un ticket de caisse bien à plat, sous une bonne lumière.
+15. La première lecture télécharge le moteur (≈ 3,5 Mo) : compte 20 à 40
     secondes. Les suivantes sont immédiates.
-16. **Vérifiez et corrigez** le montant, la date et le commerçant, choisissez une
-    catégorie, puis enregistrez.
+16. **Vérifie et corrige** le montant, la date et le commerçant, choisis une
+    catégorie, puis enregistre.
 
 > L'OCR se trompe régulièrement : c'est normal et prévu. L'étape de correction
 > ne peut pas être sautée.
 
 ### E. Sauvegarde
 
-17. **Réglages** → **Sauvegarde**. Saisissez deux fois un mot de passe, cochez la
+17. **Réglages** → **Sauvegarde**. Saisis deux fois un mot de passe, coche la
     case d'avertissement, puis **Télécharger la sauvegarde chiffrée**.
-18. **Notez ce mot de passe sur papier.** Sans lui, le fichier est perdu.
-19. Dans « Restaurer », choisissez le fichier et tapez un **mauvais** mot de
+18. **Note ce mot de passe sur papier.** Sans lui, le fichier est perdu.
+19. Dans « Restaurer », choisis le fichier et tape un **mauvais** mot de
     passe : un message d'erreur doit apparaître, sans rien modifier.
-20. Retapez le bon : un résumé du contenu s'affiche avant tout remplacement.
+20. Retape le bon : un résumé du contenu s'affiche avant tout remplacement.
 
 ### F. Sécurité
 
 21. **Réglages** → **Sécurité** → **Créer ma phrase de récupération**.
-    Recopiez les 12 mots **sur papier**, puis confirmez les mots demandés.
-22. **Activer la biométrie** : si votre téléphone le permet, un déverrouillage
+    Recopie les 12 mots **sur papier**, puis confirme les mots demandés.
+22. **Activer la biométrie** : si ton téléphone le permet, un déverrouillage
     par empreinte est proposé au lancement suivant. Sinon un message l'explique —
     le code continue de fonctionner.
-23. Verrouillez avec le cadenas 🔒 en haut, puis **Code oublié ?** → saisissez
-    vos 12 mots : l'application se rouvre.
-24. **Test du blocage** : tapez 3 fois un mauvais code. Un compte à rebours de
-    5 minutes doit apparaître. Fermez et rouvrez l'application : le blocage doit
+23. Verrouille avec le cadenas 🔒 en haut, puis **Code oublié ?** → saisis
+    tes 12 mots : l'application se rouvre.
+24. **Test du blocage** : tape 3 fois un mauvais code. Un compte à rebours de
+    5 minutes doit apparaître. Ferme et rouvre l'application : le blocage doit
     tenir.
-25. **Test du verrouillage automatique** : laissez l'application ouverte sans y
-    toucher pendant 2 minutes, ou passez sur une autre application 2 minutes.
+25. **Test du verrouillage automatique** : laisse l'application ouverte sans y
+    toucher pendant 2 minutes, ou passe sur une autre application 2 minutes.
     Au retour, le code doit être redemandé.
 
 ### G. Le test décisif — le mode avion
 
-26. Fermez complètement l'application.
-27. Activez le **mode avion** du téléphone.
-28. Rouvrez l'application depuis l'écran d'accueil.
+26. Ferme complètement l'application.
+27. Active le **mode avion** du téléphone.
+28. Rouvre l'application depuis l'écran d'accueil.
 
-Elle doit s'ouvrir normalement, demander le code, et afficher toutes vos
-dépenses. En haut, la pastille indique **« Hors-ligne »** en orange. Ajoutez une
+Elle doit s'ouvrir normalement, demander le code, et afficher toutes tes
+dépenses. En haut, la pastille indique **« Hors-ligne »** en orange. Ajoute une
 dépense : elle doit s'enregistrer sans problème.
 
-> Si cette étape échoue, rouvrez l'application une fois **avec** connexion,
-> attendez une dizaine de secondes, puis recommencez : la mise en cache n'était
+> Si cette étape échoue, rouvre l'application une fois **avec** connexion,
+> attends une dizaine de secondes, puis recommence : la mise en cache n'était
 > pas terminée.
 
 ### H. Finitions
 
 29. **Appui long sur l'icône** de l'écran d'accueil : les raccourcis
     « Ajouter une dépense » et « Scanner un reçu » doivent apparaître.
-30. **Réglages** → cochez la pastille sur l'icône : un nombre apparaît sur
+30. **Réglages** → coche la pastille sur l'icône : un nombre apparaît sur
     l'icône de l'application (Android ; pas sur iPhone).
-31. Icône 🌗 en haut à droite : thème automatique → clair → sombre.
-32. Tournez le téléphone : rien ne doit être coupé ni déborder.
+31. Icône 🌗 en haut à droite : thème automatique → clair → sombre → Omni.
+32. Tourne le téléphone : rien ne doit être coupé ni déborder.
 
 ---
 
@@ -279,14 +283,19 @@ dépense : elle doit s'enregistrer sans problème.
 
 ```
 omni-budget/
-├── .github/workflows/deploiement.yml   Publication automatique
+├── .github/workflows/
+│   ├── ci.yml                 Tests unitaires, build et E2E Playwright (PR / push)
+│   └── deploiement.yml        Publication automatique sur GitHub Pages
 ├── public/
 │   ├── icones/                Icônes générées (npm run icones)
 │   ├── ocr/                   Moteur Tesseract (npm run ocr)
+│   ├── licences-tierces.txt   Licences des bibliothèques tierces
 │   ├── manifest.webmanifest   Carte d'identité + raccourcis
-│   └── sw.js                  Service worker : mode hors-ligne
+│   ├── sw.js                  Service worker : mode hors-ligne
+│   └── theme-init.js          Initialisation synchrone du thème (anti-FOUC)
 ├── scripts/
 │   ├── generer-icones.mjs     Dessine les PNG sans aucune librairie
+│   ├── licences-tierces.mjs   Génère public/licences-tierces.txt
 │   └── preparer-ocr.mjs       Installe le moteur de reconnaissance
 ├── src/
 │   ├── securite/
@@ -314,7 +323,7 @@ omni-budget/
 │   ├── styles/                base.css, composants.css, securite.css
 │   ├── App.jsx                Assemblage
 │   └── main.jsx               Point de départ
-├── tests/                     179 tests automatisés
+├── tests/                     Tests unitaires (Vitest) et E2E Playwright (tests/e2e/e2e.mjs)
 ├── index.html
 ├── package.json
 └── vite.config.js             Configuration + CSP + service worker
@@ -336,7 +345,7 @@ différent :
   12 mots      ──HKDF────▶ clé C ──chiffre──▶ [copie 3 de la clé du coffre]
 ```
 
-Conséquences : changer de code ne rechiffre que 32 octets au lieu de toutes vos
+Conséquences : changer de code ne rechiffre que 32 octets au lieu de toutes tes
 dépenses ; oublier le code n'est pas fatal si la phrase existe ; désactiver la
 biométrie n'efface que la copie 2.
 
@@ -369,7 +378,7 @@ ce qu'une application web peut faire de plus proche.
 
 Une notification qui arrive alors que l'application n'a pas été ouverte depuis
 huit jours exige un serveur qui l'envoie. Ce projet n'a volontairement aucun
-serveur : ce serait le seul moyen de faire sortir vos données de l'appareil. Les
+serveur : ce serait le seul moyen de faire sortir tes données de l'appareil. Les
 rappels sont donc vérifiés **à l'ouverture de l'application**. C'est un compromis
 assumé en faveur de la confidentialité, et l'interface le dit.
 
@@ -416,7 +425,7 @@ GitHub Pages ne permet pas d'ajouter d'en-têtes HTTP personnalisés. La règle
   déverrouillage : la configuration du verrouillage (où la clé figure justement
   sous forme chiffrée) et deux préférences d'affichage (thème, devise).
 - Désinstaller l'application ou effacer les données du navigateur supprime tout
-  définitivement. **Faites une sauvegarde chiffrée.**
+  définitivement. **Fais une sauvegarde chiffrée.**
 
 ---
 
@@ -433,18 +442,23 @@ GitHub Pages ne permet pas d'ajouter d'en-têtes HTTP personnalisés. La règle
 
 ---
 
-## Licence
+## Licence et contact
 
-**© 2026 Ferrus Dantioch — Creative Commons BY-NC-ND 4.0**
+**Auteur** : Ferrus Dantioch  
+**Licence** : `CC BY-NC-ND 4.0` — Creative Commons Attribution - Pas d'Utilisation Commerciale - Pas de Modification 4.0 International (*Attribution-NonCommercial-NoDerivatives 4.0 International*)  
 ([résumé de la licence en français](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr))
 
-En clair : le partage est autorisé, à l'identique et en citant l'auteur ;
-l'usage commercial est interdit ; la modification et les œuvres dérivées
-sont interdites. Le logiciel est fourni « en l'état », sans aucune garantie.
+En clair (traduction en français) : le partage est autorisé, à l'identique et en
+citant Ferrus Dantioch ; l'usage commercial est interdit ; la modification et les
+œuvres dérivées sans autorisation sont interdites. Le logiciel est fourni « en
+l'état », sans aucune garantie.
 
 Texte complet dans le fichier [LICENSE](LICENSE) : le texte officiel en
 anglais, suivi de la traduction française officielle publiée par Creative
 Commons.
+
+**Contact** : `omni-systeme.choking513@passmail.net`  
+**Portfolio Omni-Système** : <https://ferrusdantioch.github.io/omni-systeme/>
 
 Les bibliothèques tierces utilisées par ce projet (voir `package.json`)
 restent soumises à leurs propres licences. Leurs textes de licence sont

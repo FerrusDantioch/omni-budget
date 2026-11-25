@@ -71,8 +71,8 @@ export function PageRecus({ surMessage }) {
 
         {recus.length === 0 ? (
           <p className="centre-vide">
-            Aucun reçu pour l’instant. Photographiez un ticket : le montant, la
-            date et le commerçant seront pré-remplis, et vous n’aurez qu’à les
+            Aucun reçu pour l’instant. Photographie un ticket : le montant, la
+            date et le commerçant seront pré-remplis, et tu n’auras qu’à les
             vérifier.
           </p>
         ) : (
@@ -110,7 +110,7 @@ export function PageRecus({ surMessage }) {
       </section>
 
       <p className="champ-aide" style={{ textAlign: 'center' }}>
-        Les photos sont compressées puis chiffrées, comme le reste de vos
+        Les photos sont compressées puis chiffrées, comme le reste de tes
         données. Elles ne quittent jamais cet appareil.
       </p>
 
@@ -189,7 +189,7 @@ export function PageRecus({ surMessage }) {
       {aSupprimer && (
         <Confirmation
           titre="Supprimer ce reçu ?"
-          message="La photo sera définitivement effacée. La dépense correspondante, elle, sera conservée dans votre historique."
+          message="La photo sera définitivement effacée. La dépense correspondante, elle, sera conservée dans ton historique."
           surAnnulation={() => definirASupprimer(null)}
           surConfirmation={async () => {
             await supprimerRecu(aSupprimer.id);

@@ -90,7 +90,7 @@ export class ErreurCoffreFerme extends Error {
 
 export class ErreurBlocage extends Error {
   constructor(secondesRestantes) {
-    super(`Trop d’essais. Réessayez dans ${Math.ceil(secondesRestantes / 60)} minute(s).`);
+    super(`Trop d’essais. Réessaie dans ${Math.ceil(secondesRestantes / 60)} minute(s).`);
     this.name = 'ErreurBlocage';
     this.secondesRestantes = secondesRestantes;
   }

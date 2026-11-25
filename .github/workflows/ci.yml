@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Installer les dependances
+        run: npm ci
+
+      - name: Fabriquer les icones
+        run: npm run icones
+
+      - name: Preparer le moteur OCR
+        run: npm run ocr
+
+      - name: Lancer les tests unitaires
+        run: npm test
+
+      - name: Construire l'application
+        run: npm run build
+
+      - name: Verifier determinisme licences-tierces et integrite LICENSE
+        run: |
+          git diff --exit-code -- public/licences-tierces.txt LICENSE
+          node -e "
+            const fs = require('node:fs');
+            const crypto = require('node:crypto');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            const sw = fs.readFileSync('dist/sw.js', 'utf8');
+            const html = fs.readFileSync('dist/index.html', 'utf8');
+            const lic = fs.readFileSync('LICENSE');
+            const licHash = crypto.createHash('sha256').update(lic).digest('hex');
+            if (pkg.version !== '2.0.1') throw new Error('Version mismatch: ' + pkg.version);
+            if (lic.length !== 43184 || licHash !== '0483fae80ead6506beafd3258fea07f5ff23bb81e2fbd41daf137d58798a14fb') {
+              throw new Error('LICENSE integrity check failed');
+            }
+            if (!sw.includes('omni-budget-2.0.1-')) throw new Error('SW cache version mismatch');
+            if (!sw.includes('/omni-budget/licences-tierces.txt')) throw new Error('licences-tierces.txt missing from precache');
+            if (!sw.includes('/omni-budget/theme-init.js')) throw new Error('theme-init.js missing from precache');
+            if (!html.includes('Content-Security-Policy')) throw new Error('CSP missing');
+            if (!html.includes('/omni-budget/theme-init.js')) throw new Error('theme-init.js script missing');
+          "
+
+      - name: Installer Playwright et Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install chromium --with-deps
+
+      - name: Lancer les tests E2E Playwright
+        run: npm run test:e2e

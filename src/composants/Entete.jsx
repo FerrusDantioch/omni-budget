@@ -15,10 +15,11 @@ import { useTheme } from '../contexte/ContexteTheme.jsx';
 export function Entete({ titre, estUnSousEcran, surRetour, surVerrouillage }) {
   const { themeApplique, theme, definirTheme } = useTheme();
 
-  // Un seul bouton fait tout le tour : auto -> clair -> sombre -> auto.
-  const suivant = theme === 'auto' ? 'clair' : theme === 'clair' ? 'sombre' : 'auto';
-  const libelles = { auto: 'automatique', clair: 'clair', sombre: 'sombre' };
-  const icones = { auto: '🌗', clair: '☀️', sombre: '🌙' };
+  // Un seul bouton fait tout le tour : auto -> clair -> sombre -> omni -> auto.
+  const ORDRE_THEMES = ['auto', 'clair', 'sombre', 'omni'];
+  const suivant = ORDRE_THEMES[(ORDRE_THEMES.indexOf(theme) + 1) % ORDRE_THEMES.length];
+  const libelles = { auto: 'automatique', clair: 'clair', sombre: 'sombre', omni: 'Omni' };
+  const icones = { auto: '🌗', clair: '☀️', sombre: '🌙', omni: '🌌' };
 
   return (
     <header className="entete">

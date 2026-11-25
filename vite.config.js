@@ -8,6 +8,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
+const paquet = JSON.parse(
+  fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8')
+);
+const VERSION_APP = paquet.version;
+
 // ---------------------------------------------------------------------------
 // NOM DU DEPOT GITHUB — LA SEULE LIGNE A MODIFIER POUR LE DEPLOIEMENT
 // ---------------------------------------------------------------------------
@@ -111,15 +116,14 @@ function pluginServiceWorker() {
       // pour une fonction que beaucoup n'utiliseront jamais. Il est donc mis
       // en cache seulement au premier scan, par la strategie "cache d'abord"
       // du service worker.
-      // licences-tierces.txt (textes de licence des bibliotheques) ne sert pas
-      // au fonctionnement : inutile de le telecharger a l'installation.
+      // licences-tierces.txt est egalement mis en cache pour pouvoir etre
+      // consulte hors-ligne depuis l'ecran « A propos ».
       const fichiers = listerFichiers(dossierSortie)
         .filter(
           (f) =>
             f !== 'sw.js' &&
             !f.endsWith('.map') &&
-            !f.startsWith('ocr/') &&
-            f !== 'licences-tierces.txt'
+            !f.startsWith('ocr/')
         )
         .sort();
 
@@ -127,15 +131,15 @@ function pluginServiceWorker() {
 
       // Le numero de version du cache change des qu'un fichier change : c'est ce qui
       // declenche la mise a jour automatique de l'application chez les utilisateurs.
-      const empreinte = crypto
-        .createHash('sha256')
-        .update(
-          fichiers
-            .map((f) => f + ':' + fs.statSync(path.join(dossierSortie, f)).size)
-            .join('|')
-        )
-        .digest('hex')
-        .slice(0, 12);
+      const empreinteGlobale = crypto.createHash('sha256');
+      for (const f of fichiers) {
+        const hashFichier = crypto
+          .createHash('sha256')
+          .update(fs.readFileSync(path.join(dossierSortie, f)))
+          .digest('hex');
+        empreinteGlobale.update(`${f}:${hashFichier}\n`);
+      }
+      const empreinte = `${VERSION_APP}-${empreinteGlobale.digest('hex').slice(0, 12)}`;
 
       const contenu = fs
         .readFileSync(cheminSw, 'utf8')
@@ -153,6 +157,9 @@ function pluginServiceWorker() {
 
 export default defineConfig({
   base: BASE,
+  define: {
+    __APP_VERSION__: JSON.stringify(VERSION_APP),
+  },
   plugins: [react(), pluginCsp(), pluginServiceWorker()],
 
   build: {

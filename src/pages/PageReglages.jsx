@@ -27,7 +27,10 @@ const THEMES = [
   { valeur: 'auto', libelle: 'Automatique' },
   { valeur: 'clair', libelle: 'Clair' },
   { valeur: 'sombre', libelle: 'Sombre' },
+  { valeur: 'omni', libelle: 'Omni' },
 ];
+
+const VERSION_APPLI = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '2.0.1';
 
 export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
   const { devise, definirDevise, categories, recurrences, recus, toutEffacer } = useBudget();
@@ -97,7 +100,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
               <span className="principal">
                 <span className="titre">Sauvegarde</span>
                 <span className="detail">
-                  Exporter, restaurer, ou sortir vos dépenses vers un tableur
+                  Exporter, restaurer, ou sortir tes dépenses vers un tableur
                 </span>
               </span>
               <span aria-hidden="true" style={{ color: 'var(--texte-doux)' }}>›</span>
@@ -136,7 +139,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
           ))}
         </fieldset>
         <p className="champ-aide" style={{ marginTop: '0.5rem' }}>
-          « Automatique » suit le réglage clair/sombre de votre téléphone.
+          « Automatique » suit le réglage clair/sombre de ton téléphone ; « Omni » applique la palette violet-nuit d’Omni-Système.
         </p>
       </section>
 
@@ -179,7 +182,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
         ) : peutInstaller ? (
           <>
             <p>
-              Installez l’application pour la lancer depuis votre écran
+              Installe l’application pour la lancer depuis ton écran
               d’accueil, en plein écran et sans connexion.
             </p>
             <button
@@ -220,7 +223,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
         </label>
 
         <details style={{ marginTop: '0.6rem' }}>
-          <summary className="champ-aide" style={{ cursor: 'pointer' }}>
+          <summary className="champ-aide resume-pliable">
             Pourquoi pas un vrai widget sur l’écran d’accueil ?
           </summary>
           <p className="champ-aide" style={{ marginTop: '0.4rem' }}>
@@ -248,7 +251,7 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
       {/* ================= DONNEES ================= */}
       <section className="carte" aria-labelledby="titre-confidentialite">
         <div className="carte-titre">
-          <h2 id="titre-confidentialite">Vos données</h2>
+          <h2 id="titre-confidentialite">Tes données</h2>
         </div>
         <ul className="liste-reglages">
           <li>
@@ -292,22 +295,46 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
           </button>
         </div>
         <p className="champ-aide">
-          Pensez à créer une sauvegarde chiffrée avant d’effacer quoi que ce soit.
+          Pense à créer une sauvegarde chiffrée avant d’effacer quoi que ce soit.
         </p>
       </section>
 
       {/* ================= A PROPOS ================= */}
       {/* Le lien s'ouvre dans un nouvel onglet, pour ne pas quitter l'application. */}
       <section className="carte" aria-labelledby="titre-a-propos">
-        <div className="carte-titre">
-          <h2 id="titre-a-propos">À propos</h2>
+        <div className="apropos-entete">
+          <svg
+            className="logo-omni"
+            viewBox="0 0 64 64"
+            width="44"
+            height="44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polygon
+              className="logo-omni-fond"
+              points="32,4 57,18 57,46 32,60 7,46 7,18"
+            />
+            <polygon
+              className="logo-omni-facette"
+              points="32,12 50,43 14,43"
+            />
+            <path
+              className="logo-omni-lignes"
+              d="M32 4 L32 12 M57 18 L32 12 M7 18 L32 12 M57 46 L50 43 M7 46 L14 43 M32 60 L50 43 M32 60 L14 43"
+            />
+          </svg>
+          <div>
+            <h2 id="titre-a-propos">À propos</h2>
+            <p className="champ-aide apropos-marque">Omni-Système</p>
+          </div>
         </div>
         <p>
           Cette application a été conçue et développée par Ferrus Dantioch, avec
-          l'aide de l'intelligence artificielle.
+          l’aide de l’intelligence artificielle.
         </p>
         <p className="champ-aide">
-          Voir d'autres projets :{' '}
+          Voir d’autres projets :{' '}
           <a
             className="lien-discret"
             href="https://ferrusdantioch.github.io/omni-systeme/"
@@ -326,14 +353,30 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Creative Commons BY-NC-ND 4.0
+            CC BY-NC-ND 4.0
           </a>{' '}
-          : partage autorisé en citant l'auteur, sans usage commercial ni modification.
+          (Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de
+          Modification 4.0 International / Attribution-NonCommercial-NoDerivatives
+          4.0 International) : partage autorisé à l’identique en citant
+          Ferrus Dantioch, usage non commercial uniquement, sans modification ni œuvre
+          dérivée.
+        </p>
+        <p className="champ-aide">
+          Bibliothèques tierces :{' '}
+          <a
+            className="lien-discret"
+            href={`${import.meta.env.BASE_URL}licences-tierces.txt`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            consulter les licences tierces
+          </a>
+          .
         </p>
         {/* Retours : une adresse-alias (Proton) créée pour ça. Le lien ouvre seulement
             l'application de messagerie, adresse et sujet déjà remplis : rien ne part tout seul. */}
         <p className="champ-aide">
-          Une idée, une remarque, un souci ? Vos retours sont les bienvenus :{' '}
+          Une idée, une remarque, un souci ? Tes retours sont les bienvenus :{' '}
           <a
             className="lien-discret"
             href="mailto:omni-systeme.choking513@passmail.net?subject=Retour%20sur%20Omni-Budget"
@@ -346,18 +389,18 @@ export function PageReglages({ surMessage, modeHorsLignePret, allerVers }) {
             ferrusdantioch.github.io partagent la même. Masquée une fois
             l'application installée (règle .note-installation de la feuille de style). */}
         <p className="champ-aide note-installation">
-          <strong>Installation sur Android&nbsp;:</strong> si Chrome indique «&nbsp;Cette appli est déjà installée&nbsp;» alors qu'elle ne l'est pas, c'est une limite de Chrome quand une autre application de ce site est déjà installée. Utilisez un autre navigateur (Brave, par exemple), ou choisissez «&nbsp;Créer un raccourci&nbsp;».
+          <strong>Installation sur Android&nbsp;:</strong> si Chrome indique «&nbsp;Cette appli est déjà installée&nbsp;» alors qu’elle ne l’est pas, c’est une limite de Chrome quand une autre application de ce site est déjà installée. Utilise un autre navigateur (Brave, par exemple), ou choisis «&nbsp;Créer un raccourci&nbsp;».
         </p>
       </section>
 
-      <p className="champ-aide" style={{ textAlign: 'center' }}>
-        Omni-Budget — version 2.0
+      <p className="champ-aide texte-centre">
+        Omni-Budget — version {VERSION_APPLI}
       </p>
 
       {confirmationEffacement && (
         <Confirmation
           titre="Tout effacer ?"
-          message="Toutes vos dépenses, catégories, budgets, récurrences et reçus seront définitivement supprimés de cet appareil. Votre code d’accès, lui, est conservé. Cette action est irréversible."
+          message="Toutes tes dépenses, catégories, budgets, récurrences et reçus seront définitivement supprimés de cet appareil. Ton code d’accès, lui, est conservé. Cette action est irréversible."
           libelleConfirmation="Tout effacer"
           surAnnulation={() => definirConfirmationEffacement(false)}
           surConfirmation={async () => {

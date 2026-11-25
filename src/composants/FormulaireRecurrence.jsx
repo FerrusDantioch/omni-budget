@@ -104,20 +104,20 @@ export function FormulaireRecurrence({
 
   function verifier() {
     const problemes = {};
-    if (brouillon.libelle.length === 0) problemes.libelle = 'Donnez un nom (par exemple « Loyer »).';
+    if (brouillon.libelle.length === 0) problemes.libelle = 'Donne un nom (par exemple « Loyer »).';
 
     const centimes = versCentimes(montant);
-    if (centimes === null) problemes.montant = 'Indiquez un montant, par exemple 750.';
+    if (centimes === null) problemes.montant = 'Indique un montant, par exemple 750.';
     else if (centimes === 0) problemes.montant = 'Le montant doit être supérieur à zéro.';
 
-    if (!estUneDateValide(dateDebut)) problemes.dateDebut = 'Choisissez une date de début valide.';
+    if (!estUneDateValide(dateDebut)) problemes.dateDebut = 'Choisis une date de début valide.';
     if (dateFin && !estUneDateValide(dateFin)) problemes.dateFin = 'Date de fin invalide.';
     if (dateFin && dateFin < dateDebut) problemes.dateFin = 'La fin doit suivre le début.';
 
     if (frequence === 'bimensuelle' && Number(jour) === Number(jour2)) {
       problemes.jour2 = 'Les deux jours doivent être différents.';
     }
-    if (type !== 'revenu' && !categorieId) problemes.categorie = 'Choisissez une catégorie.';
+    if (type !== 'revenu' && !categorieId) problemes.categorie = 'Choisis une catégorie.';
 
     return problemes;
   }
@@ -382,7 +382,7 @@ export function FormulaireRecurrence({
                 <p className="bandeau bandeau-alerte" style={{ marginTop: '0.6rem' }}>
                   <span aria-hidden="true">⚠️</span>
                   Cette récurrence fait dépasser le plafond de la catégorie.
-                  Vous pouvez quand même l’enregistrer.
+                  Tu peux quand même l’enregistrer.
                 </p>
               )}
             </>

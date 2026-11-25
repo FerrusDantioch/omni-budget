@@ -96,8 +96,8 @@ export function FournisseurBudget({ children }) {
         console.error('Impossible de charger les données', probleme);
         if (!annule) {
           definirErreur(
-            'Impossible de lire vos données sur cet appareil. ' +
-              'Rechargez la page ; si le problème persiste, restaurez une sauvegarde.'
+            'Impossible de lire tes données sur cet appareil. ' +
+              'Recharge la page ; si le problème persiste, restaure une sauvegarde.'
           );
           definirPret(true);
         }

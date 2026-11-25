@@ -99,7 +99,7 @@ export function ouvrirBase() {
       blocked() {
         console.warn(
           'Un autre onglet utilise encore l’ancienne version de la base. ' +
-            'Fermez les autres onglets de l’application.'
+            'Ferme les autres onglets de l’application.'
         );
       },
     });

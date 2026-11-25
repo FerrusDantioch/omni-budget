@@ -24,15 +24,22 @@ export function useServiceWorker() {
     if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return undefined;
 
     let annule = false;
+    let enregistrementActif = null;
+    let avaitUnControleur = Boolean(navigator.serviceWorker.controller);
+    let dejaRecharge = false;
 
     // BASE_URL vaut "/NOM-DU-DEPOT/" : le service worker doit etre enregistre
     // a cette adresse pour pouvoir couvrir toute l'application.
     const adresseDuServiceWorker = `${import.meta.env.BASE_URL}sw.js`;
 
     navigator.serviceWorker
-      .register(adresseDuServiceWorker, { scope: import.meta.env.BASE_URL })
+      .register(adresseDuServiceWorker, {
+        scope: import.meta.env.BASE_URL,
+        updateViaCache: 'none',
+      })
       .then((enregistrement) => {
         if (annule) return;
+        enregistrementActif = enregistrement;
         definirInstalle(true);
 
         // Une version plus recente attend deja son tour ?
@@ -59,6 +66,13 @@ export function useServiceWorker() {
         console.warn('Mode hors-ligne indisponible :', probleme);
       });
 
+    const surChangementVisibilite = () => {
+      if (document.visibilityState === 'visible' && enregistrementActif) {
+        enregistrementActif.update().catch(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', surChangementVisibilite);
+
     // STOCKAGE PERSISTANT
     // Par defaut, le navigateur peut effacer de lui-meme la copie hors-ligne
     // (et les donnees du budget) s'il manque de place ou si l'application est
@@ -80,9 +94,14 @@ export function useServiceWorker() {
         .catch(() => {});
     }
 
-    // Quand la nouvelle version prend la main, on recharge la page une fois.
-    let dejaRecharge = false;
+    // Quand la nouvelle version prend la main, on recharge la page une fois
+    // (sans recharger lors du tout premier clients.claim() a l'installation).
     const surChangement = () => {
+      if (!avaitUnControleur) {
+        avaitUnControleur = true;
+        return;
+      }
+      definirMiseAJourDisponible(false);
       if (dejaRecharge) return;
       dejaRecharge = true;
       window.location.reload();
@@ -91,6 +110,7 @@ export function useServiceWorker() {
 
     return () => {
       annule = true;
+      document.removeEventListener('visibilitychange', surChangementVisibilite);
       navigator.serviceWorker.removeEventListener('controllerchange', surChangement);
     };
   }, []);

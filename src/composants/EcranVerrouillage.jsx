@@ -41,7 +41,7 @@ export function EcranVerrouillage() {
     definirMessage('');
     const resultat = await deverrouillerAvecBiometrie();
     if (!resultat.ouvert) {
-      definirMessage(`${resultat.message} Utilisez votre code.`);
+      definirMessage(`${resultat.message} Utilise ton code.`);
     }
     definirVerificationEnCours(false);
   }
@@ -83,7 +83,7 @@ export function EcranVerrouillage() {
         <p className="montant-secondaire">
           {blocage.bloque
             ? 'Déverrouillage temporairement bloqué'
-            : 'Saisissez votre code pour accéder à vos données'}
+            : 'Saisis ton code pour accéder à tes données'}
         </p>
 
         {blocage.bloque ? (
@@ -91,7 +91,7 @@ export function EcranVerrouillage() {
             <p className="bandeau bandeau-alerte">
               <span aria-hidden="true">⏳</span>
               <span>
-                Trop d’essais incorrects. Réessayez dans{' '}
+                Trop d’essais incorrects. Réessaie dans{' '}
                 <strong>
                   {Math.floor(blocage.secondesRestantes / 60)} min{' '}
                   {String(blocage.secondesRestantes % 60).padStart(2, '0')} s
@@ -100,7 +100,7 @@ export function EcranVerrouillage() {
               </span>
             </p>
             <p className="champ-aide">
-              Ce délai protège vos données : il rend impossible d’essayer les
+              Ce délai protège tes données : il rend impossible d’essayer les
               codes un par un.
             </p>
           </div>
@@ -152,7 +152,7 @@ export function EcranVerrouillage() {
           {configuration?.phraseActive ? (
             <form onSubmit={validerLaPhrase} noValidate>
               <p>
-                Saisissez les 12 mots de votre phrase de récupération, séparés
+                Saisis les 12 mots de ta phrase de récupération, séparés
                 par des espaces, dans l’ordre.
               </p>
               <div className="champ">
@@ -195,7 +195,7 @@ export function EcranVerrouillage() {
                 </span>
               </p>
               <p>
-                Vos données sont chiffrées avec une clé dérivée de votre code.
+                Tes données sont chiffrées avec une clé dérivée de ton code.
                 Sans ce code et sans phrase de récupération, elles sont
                 <strong> définitivement illisibles</strong> — y compris pour
                 l’auteur de l’application.
@@ -231,7 +231,7 @@ export function EcranVerrouillage() {
       {confirmationEffacement && (
         <Confirmation
           titre="Effacer toutes les données ?"
-          message="Toutes vos dépenses, catégories et budgets seront définitivement supprimés de cet appareil, et un nouveau code vous sera demandé. Cette action est irréversible."
+          message="Toutes tes dépenses, catégories et budgets seront définitivement supprimés de cet appareil, et un nouveau code te sera demandé. Cette action est irréversible."
           libelleConfirmation="Effacer définitivement"
           surAnnulation={() => definirConfirmationEffacement(false)}
           surConfirmation={toutEffacerEtRecommencer}

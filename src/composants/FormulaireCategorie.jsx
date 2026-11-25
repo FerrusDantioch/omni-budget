@@ -28,12 +28,12 @@ export function FormulaireCategorie({
     evenement.preventDefault();
 
     const problemes = {};
-    if (nom.trim().length === 0) problemes.nom = 'Donnez un nom à cette catégorie.';
+    if (nom.trim().length === 0) problemes.nom = 'Donne un nom à cette catégorie.';
     if (nom.trim().length > 40) problemes.nom = 'Le nom est trop long (40 caractères maximum).';
 
     // Un plafond vide signifie "pas de limite" : c'est autorise.
     const centimes = plafond.trim() === '' ? 0 : versCentimes(plafond);
-    if (centimes === null) problemes.plafond = 'Indiquez un montant, par exemple 250.';
+    if (centimes === null) problemes.plafond = 'Indique un montant, par exemple 250.';
 
     definirErreurs(problemes);
     if (Object.keys(problemes).length > 0) {
@@ -131,7 +131,7 @@ export function FormulaireCategorie({
           <span className="devise" aria-hidden="true">€</span>
         </div>
         <span className="champ-aide" id="aide-plafond-categorie">
-          Laissez vide pour ne fixer aucune limite. Ce montant sert de point de
+          Laisse vide pour ne fixer aucune limite. Ce montant sert de point de
           départ pour chaque nouveau mois.
         </span>
         {erreurs.plafond && (

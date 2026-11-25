@@ -11,7 +11,7 @@
  *
  * ATTENTION : les trois valeurs ci-dessous entre guillemets sont des marqueurs.
  * Elles sont remplacees automatiquement par les vraies valeurs pendant
- * "npm run build" (voir vite.config.js). Ne les modifiez pas a la main.
+ * "npm run build" (voir vite.config.js). Ne les modifie pas a la main.
  */
 
 const VERSION_CACHE = "__VERSION_CACHE__";
@@ -76,21 +76,39 @@ self.addEventListener('fetch', (evenement) => {
   const url = new URL(requete.url);
   if (url.origin !== self.location.origin) return;
 
-  // Cas 1 : l'utilisateur ouvre ou recharge l'application.
-  // On renvoie toujours la page d'accueil stockee dans le cache : l'application
-  // demarre donc instantanement, meme en mode avion.
+  // Cas 1 : l'utilisateur ouvre ou recharge l'application (ou un fichier statique
+  // comme licences-tierces.txt). On verifie d'abord le cache exact pour servir
+  // les fichiers statiques tels quels, puis la page d'accueil pour les routes SPA.
   if (requete.mode === 'navigate') {
     evenement.respondWith(
       (async () => {
         const cache = await caches.open(NOM_DU_CACHE);
-        const enCache = await cache.match(PAGE_ACCUEIL);
-        if (enCache) return enCache;
+        const enCacheExact = await cache.match(requete);
+        if (enCacheExact) return enCacheExact;
+
+        const estRacineOuRoute =
+          url.pathname === BASE ||
+          url.pathname === `${BASE}index.html` ||
+          !/\.[a-z0-9]+$/i.test(url.pathname);
+        if (estRacineOuRoute) {
+          const enCache = await cache.match(PAGE_ACCUEIL);
+          if (enCache) return enCache;
+        }
+
         try {
-          return await fetch(requete);
+          const reponse = await fetch(requete);
+          if (reponse && reponse.status === 200 && reponse.type === 'basic') {
+            cache.put(requete, reponse.clone()).catch(() => {});
+          }
+          return reponse;
         } catch (erreur) {
+          if (estRacineOuRoute) {
+            const enCache = await cache.match(PAGE_ACCUEIL);
+            if (enCache) return enCache;
+          }
           // Vraiment aucun recours : on affiche un message minimal.
           return new Response(
-            '<h1>Application indisponible</h1><p>Reconnectez-vous une fois pour terminer l\u2019installation.</p>',
+            '<h1>Application indisponible</h1><p>Reconnecte-toi une fois pour terminer l\u2019installation.</p>',
             { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 }
           );
         }
@@ -112,12 +130,12 @@ self.addEventListener('fetch', (evenement) => {
         const reponse = await fetch(requete);
         // On ne met en cache que les reponses valides de notre site.
         if (reponse && reponse.status === 200 && reponse.type === 'basic') {
-          cache.put(requete, reponse.clone());
+          cache.put(requete, reponse.clone()).catch(() => {});
         }
         return reponse;
       } catch (erreur) {
         // Hors-ligne et fichier inconnu : on echoue proprement.
-        return new Response('', { status: 504, statusText: 'Hors-ligne' });
+        return new Response('', { status: 503, statusText: 'Hors-ligne' });
       }
     })()
   );

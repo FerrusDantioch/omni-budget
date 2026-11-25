@@ -120,7 +120,7 @@ export function ScannerRecu({ surTermine, surAnnulation, surMessage }) {
       console.error('Scan impossible', probleme);
       definirErreur(
         probleme.message ??
-          'La lecture a échoué. Vous pouvez saisir les informations à la main.'
+          'La lecture a échoué. Tu peux saisir les informations à la main.'
       );
       // Meme en cas d'echec, si l'image est prete on laisse saisir a la main.
       definirEtape(image ? 'correction' : 'choix');
@@ -135,10 +135,10 @@ export function ScannerRecu({ surTermine, surAnnulation, surMessage }) {
     const problemes = {};
     const centimes = versCentimes(montant);
     if (centimes === null || centimes === 0) {
-      problemes.montant = 'Indiquez le montant du reçu.';
+      problemes.montant = 'Indique le montant du reçu.';
     }
-    if (!estUneDateValide(date)) problemes.date = 'Choisissez une date valide.';
-    if (!categorieId) problemes.categorie = 'Choisissez une catégorie.';
+    if (!estUneDateValide(date)) problemes.date = 'Choisis une date valide.';
+    if (!categorieId) problemes.categorie = 'Choisis une catégorie.';
 
     definirErreursChamps(problemes);
     if (Object.keys(problemes).length > 0) return;
@@ -191,7 +191,7 @@ export function ScannerRecu({ surTermine, surAnnulation, surMessage }) {
   if (etape === 'choix') {
     return (
       <div className="pile-serree">
-        <p>Prenez le ticket en photo, ou choisissez une image déjà enregistrée.</p>
+        <p>Prends le ticket en photo, ou choisis une image déjà enregistrée.</p>
 
         {moteur && !moteur.disponible && (
           <p className="bandeau bandeau-alerte">
@@ -279,7 +279,7 @@ export function ScannerRecu({ surTermine, surAnnulation, surMessage }) {
           />
         </div>
         <p className="champ-aide">
-          Tout se passe sur votre appareil : l’image n’est envoyée nulle part.
+          Tout se passe sur ton appareil : l’image n’est envoyée nulle part.
         </p>
       </div>
     );
@@ -302,10 +302,10 @@ export function ScannerRecu({ surTermine, surAnnulation, surMessage }) {
       <p className="bandeau bandeau-alerte">
         <span aria-hidden="true">✍️</span>
         <span>
-          <strong>Vérifiez chaque valeur avant d’enregistrer.</strong>{' '}
+          <strong>Vérifie chaque valeur avant d’enregistrer.</strong>{' '}
           {analyse
             ? 'La lecture automatique se trompe régulièrement sur les chiffres.'
-            : 'Aucune lecture automatique n’a été faite : saisissez les valeurs.'}
+            : 'Aucune lecture automatique n’a été faite : saisis les valeurs.'}
         </span>
       </p>
 

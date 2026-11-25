@@ -99,7 +99,7 @@ export function PageBudgets({ surMessage }) {
 
         {categories.length === 0 ? (
           <p className="centre-vide">
-            Créez d’abord une catégorie, plus bas dans cet écran.
+            Crée d’abord une catégorie, plus bas dans cet écran.
           </p>
         ) : (
           <form onSubmit={enregistrer} noValidate>
@@ -161,14 +161,14 @@ export function PageBudgets({ surMessage }) {
               <span>
                 Utiliser aussi ces montants pour les mois suivants
                 <span className="champ-aide">
-                  Décochez pour ne modifier que {nomDuMoisAffichage(mois)}.
+                  Décoche pour ne modifier que {nomDuMoisAffichage(mois)}.
                 </span>
               </span>
             </label>
 
             {saisieInvalide && (
               <p className="champ-erreur" role="alert">
-                Un des montants n’est pas valide. Utilisez des chiffres, par
+                Un des montants n’est pas valide. Utilise des chiffres, par
                 exemple 250 ou 250,50.
               </p>
             )}
@@ -272,7 +272,7 @@ export function PageBudgets({ surMessage }) {
       {categorieASupprimer && (
         <Confirmation
           titre="Supprimer la catégorie ?"
-          message={`« ${categorieASupprimer.nom} » sera supprimée. Vos dépenses déjà enregistrées ne sont pas effacées : elles seront regroupées sous « Sans catégorie ».`}
+          message={`« ${categorieASupprimer.nom} » sera supprimée. Tes dépenses déjà enregistrées ne sont pas effacées : elles seront regroupées sous « Sans catégorie ».`}
           surAnnulation={() => definirCategorieASupprimer(null)}
           surConfirmation={async () => {
             await supprimerCategorie(categorieASupprimer.id);

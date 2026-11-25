@@ -336,7 +336,7 @@
 
 .bouton-principal {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-texte);
 }
 .bouton-principal:hover { background: var(--accent-fonce); }
 
@@ -386,7 +386,7 @@
   border-radius: 50%;
   border: none;
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-texte);
   font-size: 1.9rem;
   line-height: 1;
   cursor: pointer;
@@ -470,6 +470,11 @@ textarea {
   background: var(--fond-carte);
   border: 1px solid var(--bordure-forte);
   border-radius: var(--rayon-petit);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--texte-doux);
+  opacity: 1;
 }
 textarea { min-height: 76px; resize: vertical; }
 
@@ -579,6 +584,7 @@ select[aria-invalid='true'] {
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  min-height: 44px;
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--bordure);
 }
@@ -672,6 +678,7 @@ select[aria-invalid='true'] {
    ========================================================================== */
 .bandeau {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.7rem;
   padding: 0.7rem 0.9rem;
@@ -694,7 +701,7 @@ select[aria-invalid='true'] {
   color: var(--critique);
   border-color: color-mix(in srgb, var(--critique) 35%, transparent);
 }
-.bandeau .bouton { flex: none; min-height: 38px; padding: 0.35rem 0.75rem; }
+.bandeau .bouton { flex: none; min-height: 44px; padding: 0.45rem 0.85rem; }
 
 /* Message court apres une action (ajout, suppression...) */
 .message-confirmation {
@@ -787,14 +794,16 @@ select[aria-invalid='true'] {
 
 .groupe-choix {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   border: none;
   padding: 0;
   margin: 0;
 }
 .groupe-choix label {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 44px;
+  padding: 0.35rem 0.65rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -859,6 +868,50 @@ select[aria-invalid='true'] {
   width: 1px;
   height: 1px;
 }
+
+/* Section A propos, logo Omni-Systeme et utilitaires */
+.apropos-entete {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.apropos-entete h2 { margin: 0; }
+.apropos-marque {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.logo-omni {
+  flex: none;
+  display: block;
+}
+.logo-omni-fond {
+  fill: var(--accent-doux);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.logo-omni-facette {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.logo-omni-lignes {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+.resume-pliable {
+  cursor: pointer;
+  padding: 0.65rem 0;
+  min-height: 44px;
+}
+.texte-centre { text-align: center; }
 
 /* Note d'installation (section À propos) : inutile une fois l'application
    installée, puisqu'elle s'ouvre alors dans sa propre fenêtre (mode

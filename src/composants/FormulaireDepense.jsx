@@ -49,7 +49,7 @@ export function FormulaireDepense({
 
     const centimes = versCentimes(montant);
     if (centimes === null) {
-      problemes.montant = 'Indiquez un montant, par exemple 12,50.';
+      problemes.montant = 'Indique un montant, par exemple 12,50.';
     } else if (centimes === 0) {
       problemes.montant = 'Le montant doit être supérieur à zéro.';
     } else if (centimes > 100000000) {
@@ -57,12 +57,12 @@ export function FormulaireDepense({
     }
 
     if (!estUneDateValide(date)) {
-      problemes.date = 'Choisissez une date valide.';
+      problemes.date = 'Choisis une date valide.';
     }
 
     // Un revenu n'appartient a aucune categorie de depense.
     if (type === 'depense' && !categorieId) {
-      problemes.categorie = 'Choisissez une catégorie.';
+      problemes.categorie = 'Choisis une catégorie.';
     }
 
     return problemes;
@@ -152,7 +152,7 @@ export function FormulaireDepense({
         <legend>Catégorie</legend>
         {categoriesProposees.length === 0 && (
           <p className="champ-aide">
-            Aucune catégorie : créez-en une depuis l’écran « Budgets ».
+            Aucune catégorie : crées-en une depuis l’écran « Budgets ».
           </p>
         )}
         {categoriesProposees.map((categorie) => {

@@ -39,7 +39,7 @@ export class GardeErreur extends Component {
         <div className="carte">
           <h1>Une erreur est survenue</h1>
           <p>
-            L’application a rencontré un problème inattendu. Vos dépenses sont
+            L’application a rencontré un problème inattendu. Tes dépenses sont
             toujours enregistrées sur cet appareil : elles n’ont pas été perdues.
           </p>
           <div className="rangee-boutons">

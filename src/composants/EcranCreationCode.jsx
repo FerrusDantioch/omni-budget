@@ -34,7 +34,7 @@ export function EcranCreationCode() {
   function validerPremiereSaisie(saisi) {
     if (CODES_INTERDITS.includes(saisi)) {
       definirMessage(
-        'Ce code est trop facile à deviner. Évitez les suites (1234) et les répétitions (0000).'
+        'Ce code est trop facile à deviner. Évite les suites (1234) et les répétitions (0000).'
       );
       definirCode('');
       return;
@@ -47,7 +47,7 @@ export function EcranCreationCode() {
 
   async function validerConfirmation(saisi) {
     if (saisi !== premierCode) {
-      definirMessage('Les deux codes ne correspondent pas. Recommencez.');
+      definirMessage('Les deux codes ne correspondent pas. Recommence.');
       definirCode('');
       definirPremierCode('');
       definirEtape('saisie');
@@ -69,36 +69,36 @@ export function EcranCreationCode() {
         {etape === 'explication' && (
           <>
             <div className="verrouillage-logo" aria-hidden="true">🔐</div>
-            <h1>Protégez vos données</h1>
+            <h1>Protège tes données</h1>
 
             <div className="carte" style={{ textAlign: 'left' }}>
               <p>
-                Vos dépenses ne quittent jamais cet appareil. Pour qu’elles
-                restent illisibles si quelqu’un d’autre prend votre téléphone,
+                Tes dépenses ne quittent jamais cet appareil. Pour qu’elles
+                restent illisibles si quelqu’un d’autre prend ton téléphone,
                 elles sont <strong>chiffrées</strong> avec une clé calculée à
-                partir d’un code que vous seul connaissez.
+                partir d’un code que toi seul connais.
               </p>
 
               <p className="bandeau bandeau-alerte">
                 <span aria-hidden="true">⚠️</span>
                 <span>
-                  <strong>Ce code ne peut pas être réinitialisé.</strong> Si vous
-                  l’oubliez, vos données sont définitivement perdues — sauf si
-                  vous créez ensuite une phrase de récupération, ce que
-                  l’application vous proposera juste après.
+                  <strong>Ce code ne peut pas être réinitialisé.</strong> Si tu
+                  l’oublies, tes données sont définitivement perdues — sauf si
+                  tu crées ensuite une phrase de récupération, ce que
+                  l’application te proposera juste après.
                 </span>
               </p>
 
               <p className="champ-aide">
                 Un code à 6 chiffres est nettement plus sûr qu’un code à 4.
-                Évitez votre date de naissance.
+                Évite ta date de naissance.
               </p>
 
               {donneesAReprendre > 0 && (
                 <p className="bandeau bandeau-info">
                   <span aria-hidden="true">📦</span>
                   <span>
-                    Vos {donneesAReprendre} enregistrement
+                    Tes {donneesAReprendre} enregistrement
                     {donneesAReprendre > 1 ? 's' : ''} existant
                     {donneesAReprendre > 1 ? 's' : ''} seront conservé
                     {donneesAReprendre > 1 ? 's' : ''} et chiffré
@@ -121,10 +121,10 @@ export function EcranCreationCode() {
 
         {etape === 'saisie' && (
           <>
-            <h1>Votre code</h1>
+            <h1>Ton code</h1>
             <p className="montant-secondaire">
-              {LONGUEUR_CODE_MIN} à 6 chiffres. Appuyez sur « Continuer » quand
-              vous avez terminé.
+              {LONGUEUR_CODE_MIN} à 6 chiffres. Appuie sur « Continuer » quand
+              tu as terminé.
             </p>
             <ClavierPin
               valeur={code}
@@ -143,8 +143,8 @@ export function EcranCreationCode() {
 
         {etape === 'confirmation' && (
           <>
-            <h1>Confirmez</h1>
-            <p className="montant-secondaire">Saisissez à nouveau le même code.</p>
+            <h1>Confirme</h1>
+            <p className="montant-secondaire">Saisis à nouveau le même code.</p>
             <ClavierPin
               valeur={code}
               surChangement={definirCode}
